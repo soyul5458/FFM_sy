@@ -28,11 +28,11 @@ frequency feature masking
 ## 데이터 크기에 따른 모델별 성능 차이 실험
 * FFM_LA_Experiments by Data Size.ipynb  
 * FFM_LA_Experiments by Data Size_0.1_0.9.ipynb  
-* Hyperparam_tunning_sy_DatsSize.ipynb
- * Results
-  * DataSize_None
-  * DataSize_HP
-  * DataSize_HP_LP
+* Hyperparam_tunning_sy_DatsSize.ipynb  
+  * Results  
+   * DataSize_None.csv 
+   * DataSize_HP.csv  
+   * DataSize_HP_LP.csv  
 
 
 ## Blur masking 실험
