@@ -412,7 +412,7 @@ class DataGenerator(tensorflow.keras.utils.Sequence):
                 nX = nX * freq_filt
 
                 
-                
+      
         if self.specaug :  ## ex: specaug = [ [2, 10] , [2, 15] ]
             f_info, t_info = self.specaug
             n_band_f, f_len = f_info
@@ -428,7 +428,7 @@ class DataGenerator(tensorflow.keras.utils.Sequence):
                     loc1 = np.random.choice(nt - b1, size = 1)[0]
                     nX[i, :, loc1:(loc1 + b1 - 1)] = 0
 
-                if self.specmix :  ## ex: specaug = [ [2, 10] , [2, 15] ]
+        if self.specmix :  ## ex: specaug = [ [2, 10] , [2, 15] ]
             f_info, t_info = self.specmix
             n_band_f, f_len = f_info
             n_band_t, t_len = t_info
