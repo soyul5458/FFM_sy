@@ -428,7 +428,7 @@ class DataGenerator(tensorflow.keras.utils.Sequence):
                     loc1 = np.random.choice(nt - b1, size = 1)[0]
                     nX[i, :, loc1:(loc1 + b1 - 1)] = 0
 
-        if self.specmix :  ## ex: specaug = [ [2, 10] , [2, 15] ]
+                if self.specmix :  ## ex: specaug = [ [2, 10] , [2, 15] ]
             f_info, t_info = self.specmix
             n_band_f, f_len = f_info
             n_band_t, t_len = t_info
@@ -456,9 +456,10 @@ class DataGenerator(tensorflow.keras.utils.Sequence):
                     
                     masked[:,loc1:(loc1 + b1 - 1)] = 1
 
-                p = 1 - np.sum(masked) / (nf*nt)
+                p = np.sum(masked) / (nf*nt)
                 ny[2*i] = (1-p)*y[2*i,:] + p*y[2*i+1,:]                
                 ny[2*i+1] = p*y[2*i,:] + (1-p)*y[2*i+1,:]
+                
                 
         if self.lowpass :
             uv, lp = self.lowpass
