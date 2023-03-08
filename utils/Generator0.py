@@ -428,7 +428,9 @@ class DataGenerator(tensorflow.keras.utils.Sequence):
                     loc1 = np.random.choice(nt - b1, size = 1)[0]
                     nX[i, :, loc1:(loc1 + b1 - 1)] = 0
 
-        if self.specmix :  ## ex: specaug = [ [2, 10] , [2, 15] ]
+		
+        # 20230308(sy) : crop1과 crop2의 범위를 (loc1:(loc1 + b1 - 1))에서 (loc1:(loc1 + b1))로 변경
+        if self.specmix :  ## ex: specmix = [ [2, 10] , [2, 15] ]
             f_info, t_info = self.specmix
             n_band_f, f_len = f_info
             n_band_t, t_len = t_info
@@ -437,27 +439,27 @@ class DataGenerator(tensorflow.keras.utils.Sequence):
                 for _ in range(n_band_f) :
                     b1 = np.random.choice(f_len)
                     loc1 = np.random.choice(nf - b1, size = 1)[0]
-                    crop1 = X[2*i, loc1:(loc1 + b1 - 1), :] 
-                    crop2 = X[2*i+1, loc1:(loc1 + b1 - 1), :] 
-                    
-                    nX[2*i, loc1:(loc1 + b1 - 1), :] = crop2
-                    nX[2*i+1, loc1:(loc1 + b1 - 1), :] = crop1
-                    
-                    masked[loc1:(loc1 + b1 - 1), :] = 1
-                
+                    crop1 = X[2*i, loc1:(loc1 + b1), :] 
+                    crop2 = X[2*i+1, loc1:(loc1 + b1), :] 
+
+                    nX[2*i, loc1:(loc1 + b1), :] = crop2
+                    nX[2*i+1, loc1:(loc1 + b1), :] = crop1
+
+                    masked[loc1:(loc1 + b1), :] = 1
+
                 for _ in range(n_band_t) :
                     b1 = np.random.choice(t_len)
                     loc1 = np.random.choice(nt - b1, size = 1)[0]
-                    crop1 = X[2*i,:, loc1:(loc1 + b1 - 1)] 
-                    crop2 = X[2*i+1,:, loc1:(loc1 + b1 - 1)] 
-                    
-                    nX[2*i,:, loc1:(loc1 + b1 - 1)] = crop2
-                    nX[2*i+1,:, loc1:(loc1 + b1 - 1)] = crop1
-                    
-                    masked[:,loc1:(loc1 + b1 - 1)] = 1
+                    crop1 = X[2*i,:, loc1:(loc1 + b1)] 
+                    crop2 = X[2*i+1,:, loc1:(loc1 + b1)] 
+
+                    nX[2*i,:, loc1:(loc1 + b1)] = crop2
+                    nX[2*i+1,:, loc1:(loc1 + b1)] = crop1
+
+                    masked[:,loc1:(loc1 + b1)] = 1
 
                 p = np.sum(masked) / (nf*nt)
-                ny[2*i] = (1-p)*y[2*i,:] + p*y[2*i+1,:]                
+                ny[2*i] = (1-p)*y[2*i,:] + p*y[2*i+1,:]
                 ny[2*i+1] = p*y[2*i,:] + (1-p)*y[2*i+1,:]
                 
                 
